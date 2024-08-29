@@ -1,6 +1,4 @@
 const prompt = require('prompt-sync')();
-let computerChoice;
-let userChoice;
 let humanScore = 0; 
 let computerScore = 0;
 
@@ -8,56 +6,71 @@ function getComputerChoice() {
     let number = Math.floor(Math.random() * 3 - 1 + 1) + 1;
     switch (number) {
         case 1:
-            computerChoice = "rock";
-            break;
+            return "rock";
         case 2:
-            computerChoice = "paper";
-            break;
+            return "paper";
         case 3:
-            computerChoice = "scissors";
-            break;
-        }
+            return "scissors";
+    }
 }
 
-function wonOrLost() {
-    if (userChoice === "rock") {
+function getHumanChoice() {
+    choice = prompt("Please enter rock, paper, or scissors: ").toLowerCase();
+    return choice;
+}
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === "rock") {
         if (computerChoice === "scissors") {
             console.log("You win!");
+            humanScore++;
         }
         if (computerChoice === "paper") {
             console.log("You lose!");
+            computerScore++;
         }
     }
-
-    if (userChoice === "paper") {
+    if (humanChoice === "paper") {
         if (computerChoice === "rock") {
             console.log("You win!");
+            humanScore++;
         }
         if (computerChoice === "scissors") {
-            console.log("You lose!");
+            conplayGamesole.log("You lose!");
+            computerScore++;
         }
     }
-
-    if (userChoice === "scissors") {
+    if (humanChoice === "scissors") {
         if (computerChoice === "rock") {
             console.log("You win!");
+            humanScore++;
         }
         if (computerChoice === "paper") {
             console.log("You lose!");
+            computerScore++;
         }
     }
-
-    if (userChoice === computerChoice) {
+    if (humanChoice === computerChoice) {
         console.log("You drawed!");
     }
 }
 
-function startGame() {
-    getComputerChoice();
-    userChoice = prompt("Please enter rock, paper, or scissors: ");
-    console.log("Computer chose " + computerChoice + ". You chose " + userChoice + ".");
-    wonOrLost();
-    // startGame();
+function playGame() {
+    let counter = 0;
+    while (counter < 5) {
+        playRound(getHumanChoice(), getComputerChoice());
+        counter++;
+        console.log(humanScore, computerScore);
+    }
+    if (humanScore > computerScore) {
+        console.log("A winner is you!");
+    }
+    else if (humanScore < computerScore) {
+        console.log("The computer won.");
+    }
+    else {
+        console.log("Neither you or the computer won.");
+    }
 }
 
-startGame();
+playGame();
