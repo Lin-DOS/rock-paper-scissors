@@ -1,4 +1,9 @@
-const prompt = require('prompt-sync')();
+try {
+    prompt = require('prompt-sync')();
+} catch (err) {
+    err.messsage;
+}
+
 let humanScore = 0; 
 let computerScore = 0;
 
@@ -51,7 +56,7 @@ function playRound(humanChoice, computerChoice) {
         }
     }
     if (humanChoice === computerChoice) {
-        console.log("You drawed!");
+        console.log("You tied!");
     }
 }
 
